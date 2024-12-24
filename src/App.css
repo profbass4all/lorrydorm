@@ -1,0 +1,41 @@
+body{
+  font-family: "Inter", serif;
+    max-width: 60%;
+    min-width: 34rem;
+    margin: 0 auto;
+}
+
+header{
+  height: 15vh;
+  background-color: #FFF7ED;
+}
+.container-head{
+  width: 90%;
+  margin-right: auto;
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  height: 100%;
+  justify-content: space-between;
+  
+}
+
+header h1{
+  color: #000;
+  font-size: 25px;
+  font-weight: bold;
+}
+
+nav{
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  gap: 2rem;
+  color: #4D4D4D;
+  font-weight: 600;
+}
+
+.avatar{
+  width: 1.875rem;
+  height: 1.875rem;
+}
