@@ -6,6 +6,7 @@ import Lorry from './components/Lorry'
 import Login from './components/Login'
 import About from './components/About'
 import Home from './components/Home'
+import LorryDetails from './components/LorryDetails'
 
 function App() {
 
@@ -20,6 +21,7 @@ function App() {
           <Route path='about' element={<About />} />
           <Route path='lorry' element={<Lorry />} />
           <Route path='login' element={<Login />} />
+          <Route path='lorry/:id' element={<LorryDetails />} />
 
         </Route>
       </Routes>

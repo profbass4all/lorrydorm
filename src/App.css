@@ -1,12 +1,13 @@
 body{
   font-family: "Inter", serif;
-    max-width: 60%;
-    min-width: 34rem;
-    margin: 0 auto;
+  max-width: 34rem;
+  width: 34rem;
+  margin: 0 auto;
+  background-color: #4d4d4d;
 }
 
 header{
-  height: 15vh;
+  height: 7rem;
   background-color: #FFF7ED;
 }
 .container-head{
@@ -23,9 +24,12 @@ header{
 header h1{
   color: #000;
   font-size: 25px;
-  font-weight: bold;
+  font-weight: 900;
 }
-
+header a:hover {
+  color: #161616;
+  text-decoration: underline;
+}
 nav{
   display: flex;
   align-items: center;
@@ -38,4 +42,89 @@ nav{
 .avatar{
   width: 1.875rem;
   height: 1.875rem;
+}
+.btns > button{
+  background-color: #FFEAD0;
+  color: #4d4d4d;
+  padding: 0.5rem 1.5rem;
+  border-radius: 10px;
+}
+
+.van-type {
+  height: 34px;
+  padding: 6px 26px;
+  font-style: normal;
+  font-weight: 500;
+  border: none;
+  border-radius: 5px;
+  background-color: #E17654;
+  color: #FFEAD0;
+  transition: 200ms all cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.simple:hover,
+.simple.selected {
+  background-color: #e17654;
+  color: white;
+}
+
+.rugged:hover,
+.rugged.selected {
+  background-color: #115e59;
+    color: white;
+}
+
+.luxury:hover,
+.luxury.selected {
+  background-color: #161616;
+    color: white;
+}
+input{
+  outline: none;
+  display: block;
+  border-top: 1px solid #D1D5DB;
+  border-right: 1px solid #D1D5DB;
+  border-left: 1px solid #D1D5DB;
+  width: 100%;
+  font-weight: 600;
+    font-family: "Inter", serif;
+  background-color: white;
+  color: #4d4d4d;
+  padding: 10px 15px;
+}
+.input-1{
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+}
+.input-2{
+  border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    border-bottom: 1px solid #D1D5DB;
+}
+
+
+@media screen and (max-width: 420px){
+    .container-head{
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      gap: 1.5em;
+      align-items:center;
+    }
+    nav{
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      /* display: none; */
+    }
+    
+    body{
+      width: 100%;
+    }
+    header{
+      height: 100%;
+      width: 100%;
+      padding: 1.5em 0 ;
+    }
+    
 }
