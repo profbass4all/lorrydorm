@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import heroImg from '../assets/images/home-hero.png'
 function Home() {
   return (
@@ -20,7 +21,7 @@ function Home() {
             }>
         <h2 style={{color: 'white', fontWeight: '600', fontSize: '2.25rem', lineHeight:'1.2'}}>You got the travel plans, we got the travel lorry.</h2>
         <p style={{color: 'white', marginTop: '1.2em', fontWeight: '400'}}>Add adventure to your life by joining the #lorrydorm movement. Rent the perfect lorry to make your perfect road trip.</p>
-        <button style={
+        <Link to={'lorry'} style={
                 {
                   backgroundColor: '#FF8C38', 
                   width: '100%', 
@@ -33,7 +34,7 @@ function Home() {
                   borderRadius: '0.5em',
                 }
           
-          }>Find your lorry</button>
+          }>Find your lorry</Link>
       </div>
     </div>
 

@@ -103,7 +103,7 @@ input{
 }
 
 
-@media screen and (max-width: 420px){
+@media screen and (max-width: 768px){
     .container-head{
       display: flex;
       flex-direction: row;
@@ -111,12 +111,13 @@ input{
       gap: 1.5em;
       align-items:center;
     }
-    nav{
+    .navv{
       display: flex;
       flex-direction: column;
       justify-content: space-between;
       /* display: none; */
     }
+    
     
     body{
       width: 100%;

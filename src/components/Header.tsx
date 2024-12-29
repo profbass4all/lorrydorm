@@ -4,7 +4,7 @@ import { LuListCollapse } from "react-icons/lu";
 import { useState, useEffect } from 'react' 
 const Header = () => {
 
-    const [mobile, setMobile] = useState(false);
+    const [mobile, setMobile] = useState(window.innerWidth <= 768);
     const [open, setOpen] = useState(false);
 
     function handleClick(): void{
@@ -18,7 +18,7 @@ const Header = () => {
     useEffect(()=>{
 
         const handleResize = () => {
-            setMobile(window.innerWidth <= 420);
+            setMobile(window.innerWidth <= 768);
         };
 
         window.addEventListener('resize', handleResize);
@@ -46,7 +46,7 @@ const dontSHow = {
     if(mobile == true && open == true){
         display = true;
     }
-    console.log('open', open);
+    console.log('display', display);
     console.log('mobile', mobile);
     if(mobile == false && display == false){
         displayLarge = true;
@@ -57,7 +57,8 @@ const dontSHow = {
             <div className="container-head" style={{flexDirection: open? 'column': 'row'}}>
                 
                     <><NavLink to={'/'}><h1>#LORRYDORM</h1></NavLink>
-                    {displayLarge && <nav> 
+                    {displayLarge && <nav className="navv"> 
+                        
                         <NavLink 
                             to={'host'} 
                     style={({ isActive }) => isActive ? activeStyles:nonActiveStyles }
@@ -72,8 +73,11 @@ const dontSHow = {
                         <NavLink to={'login'}                         style={({ isActive }) => isActive ? activeStyles:nonActiveStyles }
  ><CgProfile className="avatar"/></NavLink>
                     </nav>}
+
+
+
                     {display &&
-                    <nav>
+                    <nav className="navv">
                         <button onClick={handleClose}>X</button>
                         <NavLink to={'host'}                         style={({ isActive }) => isActive ? activeStyles:nonActiveStyles }
 >Host</NavLink>
