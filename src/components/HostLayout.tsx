@@ -6,7 +6,6 @@ function HostLayout({isLoggedIn}: {isLoggedIn: boolean}) {
     const location = useLocation()
 
 
-isLoggedIn = true;
     if (!isLoggedIn) {
         return(
             <Navigate 

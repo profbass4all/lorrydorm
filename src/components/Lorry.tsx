@@ -1,9 +1,28 @@
 import { NavLink, useSearchParams } from 'react-router-dom'
-import {data} from '../data'
-import {  useState } from 'react'
+// import {data} from '../data'
+import {  useEffect, useState } from 'react'
+
+interface Lorry { sn: number, name: string, price: number, description: string, imageUrl: string, type: string, user_id: number, quantity: number, createdAt: string, updatedAt: string}
 function Lorry() {
 
-  const [lorry] = useState(data)
+  const [lorry, setLorries] = useState<Lorry[] | null>(null)
+  const [error, setError] = useState(null)
+
+  useEffect(()=>{
+    async function getLorries(){
+      try {
+        const response = await fetch('http://localhost:1624/all-lorries')
+        if(!response.ok){
+          throw new Error('Failed to fetch data')
+        }
+        const data = await response.json()
+        setLorries(data)
+      } catch (error: any) {
+        setError(error.message)
+      }
+    }
+    getLorries()
+  }, [])
   const [searchParams, setSearchParams] = useSearchParams('')
 
   console.log('searchParams',searchParams.get('type'))
@@ -58,7 +77,9 @@ const filteredList = filter? lorry.filter(item => filter === item.type.toLowerCa
       })
   }
 
-
+  if(error){
+    return <h2>Error: {error}</h2>
+  }
   return (
 
     <div style={{

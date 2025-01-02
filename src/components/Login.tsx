@@ -1,3 +1,4 @@
+import { useState } from "react"
 import { useForm, SubmitHandler } from "react-hook-form"
 import { useLocation, useNavigate } from "react-router-dom"
 
@@ -6,36 +7,52 @@ type Inputs = {
   password: string
 }
 
-type setLoggingIn = {
-  setIsLoggedIn: (value: boolean) => void
+type LoggingType = {
+  setIsLoggedIn: (value: boolean) => void,
+  setToken: (value: string)=>void
 }
-const Login = ({setIsLoggedIn}:setLoggingIn ) => {
+const Login = ({setIsLoggedIn, setToken}:LoggingType ) => {
 
-const location = useLocation()
-console.log('location: ', location)
+  const [error, setError] = useState('')
+
+
+  const location = useLocation()
 
   const { register, handleSubmit, formState: { errors, isSubmitting },} = useForm<Inputs>()
   const navigate = useNavigate()
 
 
   const loginSubmit: SubmitHandler<Inputs> = async (data: Inputs) => {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      if (data.email === 'a@b.com' && data.password === 'p') {
+    try {
+        const response = await fetch('http://localhost:1624/login', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data),
+        });
+
+        if (!response.ok) {
+            const errorResult = await response.json();
+            throw new Error(errorResult.message || 'Something went wrong');
+        }
+
+
+        const token = response.headers.get('authorization')?.split(' ')[1] 
+        if(!token) throw new Error('Token not found');
+
+        setToken(token);
+        
+        const result = await response.json();
+        if (result.status !== true) throw new Error(result.message);
+
+
         setIsLoggedIn(true);
-        navigate(location.state?.comingFrom || '/host' , {replace: true})
-      } else {
-        setIsLoggedIn(false)
-        alert('Invalid credentials');
-
-      }
-      resolve(true); // Resolves the Promise after completion
-    }, 1000);
-  });
+        navigate(location.state?.comingFrom || '/host', { replace: true });
+    } catch (error: any) {
+        setError(error.message || 'An unexpected error occurred');
+    }
 };
-
-
-
 
   return (
 
@@ -60,7 +77,7 @@ console.log('location: ', location)
             <input className="input-2" type="password" placeholder="Password"  {...register("password", {required: 'Password is required'})}  />
 
             {errors.password && <span style={{color: 'red'}}>{errors.password.message}</span>}
-
+        {error? <p className="text-red-500">{error}</p>: ''}
         <button disabled={isSubmitting} type="submit"  style={{
           backgroundColor: '#FF8C38',
           marginTop: '1.3em',

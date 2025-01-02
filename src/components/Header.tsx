@@ -46,15 +46,15 @@ const dontSHow = {
     if(mobile == true && open == true){
         display = true;
     }
-    console.log('display', display);
-    console.log('mobile', mobile);
+    // console.log('display', display);
+    // console.log('mobile', mobile);
     if(mobile == false && display == false){
         displayLarge = true;
     }
   return (
     <>
         <header>
-            <div className="container-head" style={{flexDirection: open? 'column': 'row'}}>
+            <div className="container-head" style={{flexDirection: display? 'column': 'row'}}>
                 
                     <><NavLink to={'/'}><h1>#LORRYDORM</h1></NavLink>
                     {displayLarge && <nav className="navv"> 

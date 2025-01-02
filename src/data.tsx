@@ -10,7 +10,6 @@ export const data = [
     { id: "9", name: "The Cruiser", price: 120, description: "The Cruiser is a van for those who love to travel in comfort and luxury. With its many windows, spacious interior and ample storage space, the Cruiser offers a beautiful view wherever you go.", imageUrl: "https://assets.scrimba.com/advanced-react/react-router/the-cruiser.png", type: "luxury", merchant_id: "300", quantity: 20 },
 ]
 
-
 export const transaction = [
     { id: 1, date: '2024-01-25', amount: 300, user_id: 20, merchant_id: 200, lorry_id: 1},
     { id: 2, date: '2023-03-17', amount: 3000, user_id: 20, merchant_id: 200, lorry_id: 2},
@@ -27,9 +26,9 @@ export const transaction = [
 ]
 
 export const user = [
-    {id: 1, user_id: 20, merchant_id: null, first_name: 'John', last_name: 'Doe', email: 'jd@example.com', passwordHash:'password', passwordSalt: 'password'},
+    {id: 1, user_id: 20, merchant_id: 200, first_name: 'John', last_name: 'Doe', email: 'jd@example.com', passwordHash:'password', passwordSalt: 'password'},
 
-    {id: 2, user_id: 30, merchant_id: null, first_name: 'John', last_name: 'Doe', email: 'jd@example.com', passwordHash:'password', passwordSalt: 'password'},
+    {id: 2, user_id: 30, merchant_id: 200, first_name: 'John', last_name: 'Doe', email: 'jd@example.com', passwordHash:'password', passwordSalt: 'password'},
 
     {id: 3, user_id: null, merchant_id: 200, first_name: 'John', last_name: 'Doe', email: 'jd@example.com', passwordHash:'password', passwordSalt: 'password'},
 

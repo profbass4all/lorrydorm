@@ -21,7 +21,8 @@ import MerchantPhotos from './components/MerchantPhotos'
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false)
-  // console.log( "setIsLoggedInssss", setIsLoggedIn)
+  const [token, setToken] = useState<string>('')
+  console.log( "token", token)
   
   return (
     <>
@@ -32,7 +33,7 @@ function App() {
           <Route index element={<Home />} />
           <Route path='about' element={<About />} />
           <Route path='lorry' element={<Lorry />} />
-          <Route path='login' element={<Login setIsLoggedIn={setIsLoggedIn} />} />
+          <Route path='login' element={<Login setIsLoggedIn={setIsLoggedIn} setToken = {setToken}  />} />
           <Route path='lorry/:id' element={<LorryDetails />} />
           <Route path='host' element={<HostLayout isLoggedIn={isLoggedIn} />} >
           
