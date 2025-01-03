@@ -17,16 +17,20 @@ const Income = () => {
           loading, 
           error 
         } = useOutletContext<IncomeContext>()
-if(loading || !transaction || !netIncome) {
+
+
+  if(loading || !transaction || !netIncome) {
     return <p>Loading...</p>
   }
-const {
-  handlePrev,
+
+
+  const {
+        handlePrev,
         handleNext,
         paginatedPages,
         NumberOfPages,
         pageNumber,
-} = usePagination(transaction)
+        } = usePagination(transaction)
   
   
   
@@ -65,19 +69,29 @@ const {
       }, 0)
 
   const transactionElement = paginatedPages.map(item =>{
+
     return (
-        <div key={item.sn} style={{display: 'flex', justifyContent: 'space-between', width: '100%', height: '6.75rem', backgroundColor: '#fff', alignItems: 'center',  marginBottom:"1.5em", padding: '0 2em', borderRadius: '5px'}}>
-          <p style={{fontWeight: '700', fontSize: '2rem'}}>{formatter.format(item.amount)}</p>
-          <p style={{fontWeight: '500', fontSize: '1.25rem', color:'#4d4d4d'}}>{item.date.slice(0, 10)}</p>
+        <div key={item.sn} className="flex justify-between w-full h-28 bg-[#fff] items-center mb-6 p-3.5 rounded-2xl">
+
+          <p className='font-bold text-3xl'>{formatter.format(item.amount)}</p>
+
+          <p className="font-medium text-xl text-[#4d4d4d]">{item.date.slice(0, 10)}</p>
+
         </div>
     )
   })
   
   return (
-    <div  style={{width: '90%',}}  className="mx-auto mt-12">
-      <h2 style={{fontWeight: '800', fontSize: '2.5rem'}} className="mb-4">Income</h2>
-      <p style={{color: '#4d4d4d', fontWeight: '500'}} className="mb-4">Last <span style={{fontWeight: '600', borderBottom: '2px solid #4d4d4d', paddingBottom:'1  px'}}>1 year</span></p>
-      <p style={{fontWeight: '800', fontSize: '2.5rem'}} className="mb-4" >{formatter.format(total)}</p>
+    <div className="mx-auto mt-12 w-11/12">
+
+      <h2 className="mb-4 font-extrabold text-3xl">Income</h2>
+
+      <p className="mb-4 text-[#4d4d4d] font-medium">Last 
+        
+        <span className="ml-2 font-semibold pb-2 border-b-solid border-b-[#4d4d4d] border-b-2">1 year</span></p>
+
+      <p className="my-8 font-extrabold text-3xl" >{formatter.format(total)}</p>
+
       <Bar data={data} options={{
           responsive: true,
           plugins: {
@@ -112,9 +126,14 @@ const {
           },
         }}/>
 
-        <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', marginTop: '2em'}}>
-          <h2 style={{fontSize: '1.5rem', fontWeight: '700'}}>Your transactions ({transaction.length + 1})</h2>
-          <p style={{color: '#4d4d4d', fontWeight: '500'}} className="mb-4">Last <span style={{fontWeight: '600'}}>1 year</span></p>
+        <div className="flex justify-between items-baseline mt-8">
+
+          <h2 className="text-2xl font-bold">Your transactions ({transaction.length + 1})</h2>
+
+          <p className="mb-4 font-medium text-[#4d4d4d]">Last 
+            
+          <span className="font-semibold">1 year</span></p>
+
         </div>
 
         {transactionElement}

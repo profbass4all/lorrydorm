@@ -63,20 +63,26 @@ if(!lorries || loading){
     )
   }
   return (
-    <div style={{width: '90%', margin: '2.5rem auto 4em', color: '#161616'}}>
-      <h2 style={{fontWeight: '700', fontSize: '2rem', marginBottom:'1em'}}>Your listed lorries</h2>
+    <div className='w-11/12 mt-12 mx-auto mb-16 text-[#161616]'>
+
+      <h2 className='font-bold text-3xl mb-4'>Your listed lorries</h2>
 
 
       {
         paginatedPages.map(item =>{
           return (
+
             <Link to={item.sn.toString()} key={item.sn}>
-          <div style={{display: 'flex', gap: '1em',background: '#fff', padding: '1em 1.6em', borderRadius: '5px',marginBottom:'1.2em' }}>
-            <img src={item.imageUrl} style={{width: '4.125rem', height: '4.125rem', borderRadius: '5px'}}/>
-            <div>
-              <h3 style={{fontSize: '1.25rem', fontWeight: '600'}}>{item.name}</h3>
-              <p style={{color: '#4d4d4d', fontWeight: '500'}}>${item.price}/day</p>
-            </div>
+
+              <div className='flex gap-4 bg-white py-4 px-2 rounded-md mb-6'>
+
+                <img src={item.imageUrl} className='w-18 h-16 rounded-md'/>
+
+                <div>
+                  <h3 className='text-xl font-semibold'>{item.name}</h3>
+
+                  <p className='text-[#4d4d4d] font-medium'>${item.price}/day</p>
+              </div>
           </div>
       
       </Link>

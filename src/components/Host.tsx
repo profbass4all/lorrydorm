@@ -9,8 +9,9 @@ const activeStyles = {
         fontWeight: "400",
     }
 const Host = () => {
-  return (
-    <div><nav>
+    return (
+        <div className="mt-4">
+            <nav>
                 <NavLink to={'.'} end style={({isActive})=> isActive? activeStyles: nonActiveStyles}>
                     Dashboard
                 </NavLink>
@@ -26,8 +27,9 @@ const Host = () => {
                 <NavLink to={'reviews'} style={({isActive})=> isActive? activeStyles: nonActiveStyles}>
                     Reviews
                 </NavLink>
-            </nav></div>
-  )
+            </nav>
+        </div>
+    )
 }
 
 export default Host

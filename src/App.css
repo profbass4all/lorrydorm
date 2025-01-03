@@ -79,28 +79,7 @@ nav{
   background-color: #161616;
     color: white;
 }
-input{
-  outline: none;
-  display: block;
-  border-top: 1px solid #D1D5DB;
-  border-right: 1px solid #D1D5DB;
-  border-left: 1px solid #D1D5DB;
-  width: 100%;
-  font-weight: 600;
-    font-family: "Inter", serif;
-  background-color: white;
-  color: #4d4d4d;
-  padding: 10px 15px;
-}
-.input-1{
-  border-top-left-radius: 5px;
-  border-top-right-radius: 5px;
-}
-.input-2{
-  border-bottom-left-radius: 5px;
-    border-bottom-right-radius: 5px;
-    border-bottom: 1px solid #D1D5DB;
-}
+
 
 
 @media screen and (max-width: 768px){

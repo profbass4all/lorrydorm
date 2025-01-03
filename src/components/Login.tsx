@@ -57,46 +57,52 @@ const Login = ({setIsLoggedIn, setToken}:LoggingType ) => {
   return (
 
 
-    <div className="mt-6 mb-16 mx-auto" style={{width: '90%'}}>
-      <h1 style={{
-        textAlign: 'center',
-        fontSize: '2rem',
-        fontWeight: 'bold',
-        marginBottom: '0.8em',
-      }}>Sign in to your account</h1>
+    <div className="mt-6 mb-16 mx-auto w-11/12">
+
+      <h1 className="mb-4 font-bold text-3xl text-center">Sign in to your account</h1>
 
 
-      <form onSubmit={handleSubmit(loginSubmit)}  style={{
-        display: 'flex',
-        flexDirection: 'column',
-      }}>
-            <input className="input-1" type="email" placeholder="Email address"  {...register("email", {required: 'Email is required'})} />
+      <form onSubmit={handleSubmit(loginSubmit)} className="flex flex-col">
 
-            {errors.email && <span style={{color: 'red'}}>{errors.email.message}</span>}
+            <input 
+            
+            className="block outline-none border-t border-t-[#d1d5db] border-solid border-x border-x-[#d1d5db] w-full font-semibold bg-white text-[#4d4d4d] py-2 px-4 rounded-tl-md rounded-tr-md"
+            
+            type="email" placeholder="Email address"  
+            
+            {...register("email", {required: 'Email is required'})} />
 
-            <input className="input-2" type="password" placeholder="Password"  {...register("password", {required: 'Password is required'})}  />
+            {errors.email && <span className="text-red-700">{errors.email.message}</span>}
 
-            {errors.password && <span style={{color: 'red'}}>{errors.password.message}</span>}
+            <input 
+            
+            className="block outline-none border-t border-t-[#d1d5db] border-solid border-x border-x-[#d1d5db] w-full font-semibold bg-white text-[#4d4d4d] py-2 px-4 rounded-bl-md rounded-br-md border-b border-b-[#d1d5db]"  
+            
+            type="password" placeholder="Password"  
+            
+            {...register("password", {required: 'Password is required'})}  />
+
+            {errors.password && <span className="text-red-700">{errors.password.message}</span>}
+
         {error? <p className="text-red-500">{error}</p>: ''}
-        <button disabled={isSubmitting} type="submit"  style={{
-          backgroundColor: '#FF8C38',
-          marginTop: '1.3em',
-          color: '#FFFFFF',
-          padding: '0.8em 0',
-          borderRadius: '5px',
-          fontWeight: 'bold'
-        }}>{isSubmitting == true? 'Logging in..': 'Sign in'}</button>
+
+        <button disabled={isSubmitting} type="submit"
+        
+        className="bg-[#ff8c38] mt-6 text-white py-4 rounded-md font-bold">
+          
+        {isSubmitting == true? 'Logging in..': 'Sign in'}</button>
 
         
       </form>
 
-      <p style={{
-        textAlign: 'center',
-        marginTop: ' 3em',
-        color: '#161616'
-      }}>Don't have an account? <span style={{color: '#FF8C38', fontWeight: '700'}}>Create one now</span></p>
+      <p className="text-center mt-12 text-[#161616]">Don't have an account?
+        
+        <span className="font-bold text-[#ff8c38]">Create one now</span></p>
+        
     </div>
   )
 }
 
 export default Login
+
+

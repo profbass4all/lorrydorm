@@ -1,6 +1,5 @@
 import { FaStar } from "react-icons/fa";
 import { Link, useOutletContext } from 'react-router-dom'
-import Lorries from "./Lorries";
 import { DashboardContext } from "../types";
 
 
@@ -35,49 +34,48 @@ const averageRating = totalRating/reviews.length
 
     <>
 
-      <div className='mt-14 py-6' style={{
-        
-        backgroundColor: '#FFEAD0'
-      }}>
+      <div className='mt-14 py-6 bg-[#ffead0]'>
 
-      <div style={{width: '90%', marginLeft: 'auto', marginRight: 'auto',display: 'flex',
-        justifyContent: 'space-between',
-        alignItems: 'center',}}>
+      <div className="w-11/12 mx-auto flex justify-between items-center">
 
       
       <div >
-        <h2 style={{fontSize: '2.25rem', color:'#161616' ,fontWeight: '700', marginBottom: '0.5em' }}>Welcome!</h2>
-        <p style={{color: '#4d4d4d', fontWeight: '500', marginBottom: '0.5em'}}>Income in the last <span style={{fontWeight: '700'}}>30 days</span></p>
-        <span style={{fontSize: '3rem', fontWeight: '1000', color: '#161616'}}>{formatter.format(total)}</span>
+        <h2 className="text-4xl text-[#161616] font-bold mb-4">Welcome!</h2>
+
+        <p className="text-[#4d4d4d] font-medium mb-4">Income in the last <span style={{fontWeight: '700'}}>30 days</span></p>
+
+        <span className="text-5xl font-black text-[#161616]">{formatter.format(total)}</span>
       </div>
       <div>
-        <Link to={'income'} style={{color: '#161616', fontWeight: '600'}}>Details</Link>
+        <Link to={'income'} className="text-[#161616] font-semibold">Details</Link>
       </div>
       
       </div>
 
     </div>
 
-    <div className='py-12' style={{
-        
-        backgroundColor: '#FFDDB2'
-      }}>
-      <div style={{width: '90%', marginLeft: 'auto', marginRight: 'auto',display: 'flex',
-        justifyContent: 'space-between',
-        alignItems: 'center',}}>
+    <div className='py-12 bg-[#ffddb2]'>
+
+      <div className="w-11/12 mx-auto flex justify-between items-center">
+
         <div style={{ display: 'flex', alignItems: 'center', gap: '1rem'}}>
+
           <h3 style={{fontSize: '1.5rem', color:'#161616' ,fontWeight: '700'}}>Review Score</h3>
 
-          <div style={{display: 'flex', alignItems: 'center', gap:'0.3rem'}}>
-            <FaStar color="#FF8C38" style={{fontSize: '1.5rem'}}/>
-          <span style={{fontSize: '1.25rem', color: '#161616', fontWeight: '800'}}>{averageRating.toFixed(1)}<span style={{fontWeight: '600', color: '#4d4d4d'}}>/5</span></span>
+          <div className="flex items-center gap-1.5">
+
+            <FaStar className="text-[#ff8c38] text-2xl" />
+
+          <span className="text-2xl text-[#161616] font-extrabold">
+          
+          {averageRating.toFixed(1)}<span className="font-semibold text-[#4d4d4d]">/5</span></span>
           </div>
           
 
 
         </div>
         <div>
-          <Link to={'reviews'} style={{color: '#161616', fontWeight: '600'}}>Details</Link>
+          <Link to={'reviews'} className="text-[#161616] font-semibold">Details</Link>
         </div>
       </div>
     </div>
