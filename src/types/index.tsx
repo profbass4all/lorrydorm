@@ -51,3 +51,7 @@ export interface ReviewContext {
 export interface StarsObject {
     [key: number]: number;
 }
+
+export interface DashboardContext extends IncomeContext {
+    reviews: ReviewsType[]
+}

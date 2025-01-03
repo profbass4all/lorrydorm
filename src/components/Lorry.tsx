@@ -3,6 +3,7 @@ import {  useEffect, useState } from 'react'
 import { ImSpinner9 } from "react-icons/im";
 import { LorryType } from '../types';
 import usePagination from '../hooks/usePagination';
+import PaginationButton from './PaginationButton';
 
 
 
@@ -148,11 +149,13 @@ const filteredList = filter? paginatedPages.filter(item => filter === item.type.
 
         </section>
 
-        <div style={{display: 'flex', justifyContent:'center', alignItems:'center', gap: '1.5em', marginBottom:'2em' }}>
-          <button className="bg-orange-400 px-4 py-1 text-xl text-white rounded-xl" onClick={handlePrev}>Prev</button>
-          <p>{pageNumber}/{NumberOfPages}</p>
-          <button className="bg-orange-400 px-4 py-1 text-xl text-white rounded-xl" onClick={handleNext}>Next</button>
-        </div>
+        
+        <PaginationButton  
+          handlePrev={handlePrev}
+          handleNext={handleNext}
+          NumberOfPages={NumberOfPages}
+          pageNumber={pageNumber}
+    />
 
         </div> 
 

@@ -2,8 +2,9 @@
 import { Bar } from "react-chartjs-2";
 import { BarElement, CategoryScale, Chart as ChartJS, Legend, LinearScale, Title, Tooltip,} from "chart.js";
 import { useOutletContext } from "react-router-dom";
-import { IncomeContext, TransactionType } from '../types'
+import { IncomeContext} from '../types'
 import usePagination from '../hooks/usePagination'
+import PaginationButton from "./PaginationButton";
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
 
@@ -16,7 +17,9 @@ const Income = () => {
           loading, 
           error 
         } = useOutletContext<IncomeContext>()
-
+if(loading || !transaction || !netIncome) {
+    return <p>Loading...</p>
+  }
 const {
   handlePrev,
         handleNext,
@@ -26,9 +29,7 @@ const {
 } = usePagination(transaction)
   
   
-  if(loading || !transaction || !netIncome) {
-    return <p>Loading...</p>
-  }
+  
   if(error){
     return <p>{error}</p>
   }
@@ -118,11 +119,12 @@ const {
 
         {transactionElement}
 
-        <div style={{display: 'flex', justifyContent:'center', alignItems:'center', gap: '1.5em', marginBottom:'2em' }}>
-          <button className="bg-orange-400 px-4 py-1 text-xl text-white rounded-xl" onClick={handlePrev}>Prev</button>
-          <p>{pageNumber}/{NumberOfPages}</p>
-          <button className="bg-orange-400 px-4 py-1 text-xl text-white rounded-xl" onClick={handleNext}>Next</button>
-        </div>
+        <PaginationButton  
+          handlePrev={handlePrev}
+          handleNext={handleNext}
+          NumberOfPages={NumberOfPages}
+          pageNumber={pageNumber}
+    />
     </div>
   )
 }

@@ -1,19 +1,25 @@
 import { FaStar } from "react-icons/fa";
 import { Link, useOutletContext } from 'react-router-dom'
 import Lorries from "./Lorries";
-import { IncomeContext } from "../types";
+import { DashboardContext } from "../types";
 
 
 function Dashboard() {
-  const { netIncome, transaction, loading, error } = useOutletContext<IncomeContext>()
+  const { netIncome, transaction, loading, error, reviews } = useOutletContext<DashboardContext>()
 
 
-  if(loading || !transaction || !netIncome) {
+  if(loading || !transaction || !netIncome || ! reviews) {
     return <p>Loading...</p>
   }
   if(error){
     return <p>{error}</p>
   }
+
+  const totalRating = reviews.reduce((acc, curr) => {
+  return acc + curr.rating
+},0)
+
+const averageRating = totalRating/reviews.length
 
   const formatter = new Intl.NumberFormat('en-US', {
     style: 'currency',
@@ -64,7 +70,7 @@ function Dashboard() {
 
           <div style={{display: 'flex', alignItems: 'center', gap:'0.3rem'}}>
             <FaStar color="#FF8C38" style={{fontSize: '1.5rem'}}/>
-          <span style={{fontSize: '1.25rem', color: '#161616', fontWeight: '800'}}>5.0<span style={{fontWeight: '600', color: '#4d4d4d'}}>/5</span></span>
+          <span style={{fontSize: '1.25rem', color: '#161616', fontWeight: '800'}}>{averageRating.toFixed(1)}<span style={{fontWeight: '600', color: '#4d4d4d'}}>/5</span></span>
           </div>
           
 
@@ -75,8 +81,7 @@ function Dashboard() {
         </div>
       </div>
     </div>
-    
-    <Lorries />
+        
     </>
     
   )
