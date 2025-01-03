@@ -1,9 +1,29 @@
 import { FaStar } from "react-icons/fa";
-import { Link } from 'react-router-dom'
+import { Link, useOutletContext } from 'react-router-dom'
 import Lorries from "./Lorries";
+import { IncomeContext } from "../types";
+
 
 function Dashboard() {
+  const { netIncome, transaction, loading, error } = useOutletContext<IncomeContext>()
 
+
+  if(loading || !transaction || !netIncome) {
+    return <p>Loading...</p>
+  }
+  if(error){
+    return <p>{error}</p>
+  }
+
+  const formatter = new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: 'USD',
+    minimumFractionDigits: 2,
+});
+
+  const total = netIncome.reduce((acc, curr)=>{
+        return acc + Number(curr.Amount)
+      }, 0)
   
   return (
 
@@ -22,7 +42,7 @@ function Dashboard() {
       <div >
         <h2 style={{fontSize: '2.25rem', color:'#161616' ,fontWeight: '700', marginBottom: '0.5em' }}>Welcome!</h2>
         <p style={{color: '#4d4d4d', fontWeight: '500', marginBottom: '0.5em'}}>Income in the last <span style={{fontWeight: '700'}}>30 days</span></p>
-        <span style={{fontSize: '3rem', fontWeight: '1000', color: '#161616'}}>$2,260</span>
+        <span style={{fontSize: '3rem', fontWeight: '1000', color: '#161616'}}>{formatter.format(total)}</span>
       </div>
       <div>
         <Link to={'income'} style={{color: '#161616', fontWeight: '600'}}>Details</Link>

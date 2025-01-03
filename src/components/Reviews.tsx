@@ -1,39 +1,44 @@
-import { reviews } from '../data'
 import { FaStar } from "react-icons/fa";
+import { useOutletContext } from "react-router-dom";
+import { ReviewContext, StarsObject } from "../types";
+import usePagination from "../hooks/usePagination";
 
 
-// interface Merchant {
-//   id: number;
-//     user_id: number;
-//     merchant_id: number;
-//     rating: number;
-//     text: string;
-//     date: string;
-// }
-interface StarsObject {
-    1: number;
-    2: number;
-    3: number;
-    4: number;
-    5: number;
-}
-let starsObj: StarsObject ={
-  1 :0,
-  2: 0,
-  3: 0,
-  4: 0,
-  5: 0,
-}
-for (let i: number = 0; i < reviews.length; i++) {
+function Reviews() {
+    
+  const {
+    reviews,
+    loadingB,
+    errorB} = useOutletContext<ReviewContext>()
 
-  if(reviews[i].rating)(
+    
+    if(loadingB || !reviews) return <h1>Loading...</h1>
 
+    const {
+      handlePrev,
+          handleNext,
+          paginatedPages,
+          NumberOfPages,
+          pageNumber,
+    } = usePagination(reviews)
+    
+
+
+  if(errorB) return <h1>Error: {errorB}</h1>
+
+  let starsObj: StarsObject ={}
+
+  for (let i: number = 0; i < reviews.length; i++) {
+
+  if(starsObj[reviews[i].rating]){
     starsObj[reviews[i].rating]+=1
-  )
+
+  }else{
+    starsObj[reviews[i].rating] = 1
+
+  }
   
 }
-function Reviews() {
-
 const totalRating = reviews.reduce((acc, curr) => {
   return acc + curr.rating
 },0)
@@ -41,7 +46,6 @@ const totalRating = reviews.reduce((acc, curr) => {
 const averageRating = totalRating/reviews.length
 
 let rating = [];
-
     for(let star in starsObj){
         rating.push(<div key={star} style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2em', color: '#4d4d4d', fontWeight: '600'}}>
               <p>{star} stars</p>
@@ -60,19 +64,20 @@ let rating = [];
   }
 
 
-const reviewText = reviews.map(review =>{
-let stars = Array(5).fill(<FaStar style={{fontSize: '1.5rem'}} />);
+const reviewText = paginatedPages.map(review =>{
+    
+  let stars = Array(5).fill(<FaStar style={{fontSize: '1.5rem'}} />);
 
 
   return (
 
     <>
-    <div className='my-6' style={{display: 'flex'}}>
+    <div className='my-6' key={review.sn} style={{display: 'flex'}}>
 
-    {stars.fill(<FaStar key={review.id} color="#FF8C38" style={{fontSize: '1.5rem'}} />, 0, review.rating)}
+    {stars.fill(<FaStar color="#FF8C38" style={{fontSize: '1.5rem'}} />, 0, review.rating)}
     </div>
-    <span style={{fontWeight: '700', marginRight: '0.5em'}}>Elliot</span>
-    <span style={{color:'#8c8c8c'}}>{review.date}</span>
+    <span style={{fontWeight: '700', marginRight: '0.5em'}}>{review.first_name}</span>
+    <span style={{color:'#8c8c8c'}}>{review.date.slice(0,10)}</span>
     <p style={{fontWeight: '500', marginTop: '1em', borderBottom: '1px solid #c7c7c7', paddingBottom: '2em'}}>{review.text}</p>
     </>
   )
@@ -103,6 +108,12 @@ let stars = Array(5).fill(<FaStar style={{fontSize: '1.5rem'}} />);
         {reviewText}
 
     </div>
+
+    <div style={{display: 'flex', justifyContent:'center', alignItems:'center', gap: '1.5em', marginBottom:'2em', marginTop: '1.5em' }}>
+          <button className="bg-orange-400 px-4 py-1 text-xl text-white rounded-xl" onClick={handlePrev}>Prev</button>
+          <p>{pageNumber}/{NumberOfPages}</p>
+          <button className="bg-orange-400 px-4 py-1 text-xl text-white rounded-xl" onClick={handleNext}>Next</button>
+        </div>
 
     </div>
   )

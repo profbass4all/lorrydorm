@@ -1,7 +1,48 @@
-import { NavLink, Outlet, useParams } from 'react-router-dom'
-import { data } from '../data'
+import { NavLink, Outlet, useOutletContext, useParams } from 'react-router-dom'
+import { useState, useEffect } from 'react'
+import { LorryType } from '../types'
 
 function MerchantLorryDetail() {
+    const [lorry, setLorry] = useState<LorryType | null>(null)
+    const [loading, setLoading] = useState<boolean>(false)
+    const [error, setError] = useState(null)
+    const { token } = useOutletContext<{token: string}>()
+    const {id} = useParams()
+    if(!id){
+        return
+    }
+
+    
+    useEffect(() =>{
+        async function getLorries(){
+            try {
+                setLoading(true)
+                const response = await fetch(`http://localhost:1624/lorry/${id}`,{
+                    method: 'GET',
+                    headers: {
+                                'Content-Type': 'application/json',
+                                'Authorization': `Bearer ${token}`,
+                            },
+                        })
+    
+                if (!response.ok) {
+                    throw new Error('Failed to fetch data')
+                }
+    
+                const data = await response.json()
+                setLorry(data.data)
+            } catch (error: any) {
+                setError(error.message)
+            }finally {
+                setLoading(false)
+            }
+        }
+    
+        getLorries()
+    }, [])
+
+
+
 
     const activeSyles = {
         fontWeight: '900',
@@ -9,12 +50,17 @@ function MerchantLorryDetail() {
         color: '#161616'
     }
 
-    const {id} = useParams()
+    if(loading || !lorry){
+        return <p>Loading...</p>
+    }
 
-    const findDetails= data.find(item =>item.id === id)
-    if(!findDetails) throw new Error(`Could not find`)
+    if(error){
+        return <p>{error}</p>
+    }
+    // const findDetails= setLorry.find(item =>item.id === id)
+    // if(!findDetails) throw new Error(`Could not find`)
 
-  return (
+return (
     <div style={{width: '90%'}} className='mx-auto mt-14'>
 
         <div style={{marginBottom: '2.5em'}}>
@@ -28,11 +74,11 @@ function MerchantLorryDetail() {
         <div className='mb-16' style={{backgroundColor: '#fff', padding: '1.5em'}}>
 
             <div style={{display: 'flex', gap:'1.5rem', marginBottom:'2em'}}>
-                <img src={findDetails.imageUrl} style={{width: '10rem', height:'10rem', borderRadius: '5px'}} />
+                <img src={lorry.imageUrl} style={{width: '10rem', height:'10rem', borderRadius: '5px'}} />
                 <div>
-                    <button className='py-1 px-4 rounded mb-2' style={{backgroundColor: '#E17654', color:'#FFEAD0'}}>{findDetails.type}</button>
-                    <h2 style={{color: '#161616', fontSize: '1.6875rem', fontWeight: '800'}}>{findDetails.name}</h2>
-                    <p style={{fontWeight: '600'}}><span style={{fontWeight: '700', fontSize: '1.25rem'}}>${findDetails.price}</span>/day</p>
+                    <button className='py-1 px-4 rounded mb-2' style={{backgroundColor: '#E17654', color:'#FFEAD0'}}>{lorry.type}</button>
+                    <h2 style={{color: '#161616', fontSize: '1.6875rem', fontWeight: '800'}}>{lorry.name}</h2>
+                    <p style={{fontWeight: '600'}}><span style={{fontWeight: '700', fontSize: '1.25rem'}}>${lorry.price}</span>/day</p>
                 </div>
             </div>
 
@@ -44,13 +90,13 @@ function MerchantLorryDetail() {
 
             </nav>
 
-        <Outlet context={findDetails} />
+        <Outlet context={lorry} />
 
 
         </div>
     
     </div>
-  )
+    )
 }
 
 export default MerchantLorryDetail

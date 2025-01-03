@@ -1,54 +1,78 @@
 import { NavLink, useSearchParams } from 'react-router-dom'
-// import {data} from '../data'
 import {  useEffect, useState } from 'react'
+import { ImSpinner9 } from "react-icons/im";
+import { LorryType } from '../types';
+import usePagination from '../hooks/usePagination';
 
-interface Lorry { sn: number, name: string, price: number, description: string, imageUrl: string, type: string, user_id: number, quantity: number, createdAt: string, updatedAt: string}
+
+
+
 function Lorry() {
 
-  const [lorry, setLorries] = useState<Lorry[] | null>(null)
+  const [lorry, setLorries] = useState<LorryType[] >([])
   const [error, setError] = useState(null)
+  const [loading, setLoading] = useState<Boolean | null>(null)
+
+  const {
+    handlePrev,
+        handleNext,
+        paginatedPages,
+        NumberOfPages,
+        pageNumber,
+  } = usePagination(lorry)
 
   useEffect(()=>{
     async function getLorries(){
       try {
+        setLoading(true)
         const response = await fetch('http://localhost:1624/all-lorries')
         if(!response.ok){
           throw new Error('Failed to fetch data')
         }
         const data = await response.json()
-        setLorries(data)
+
+      
+      setLorries(data.data)
+
+    
       } catch (error: any) {
         setError(error.message)
+      }finally{
+        setLoading(false)
       }
-    }
+    } 
     getLorries()
   }, [])
   const [searchParams, setSearchParams] = useSearchParams('')
 
-  console.log('searchParams',searchParams.get('type'))
-
   const filter = searchParams.get('type')
 
-  // useEffect(()=>{
-  //   async function getLorries(){
-  //     const response = await fetch('https://api.example.com/lorry')
-  //     const data = await response.json()
-  //     setLorry(data)
-  //   }
-  // }, [])
-const filteredList = filter? lorry.filter(item => filter === item.type.toLowerCase()): lorry
+
+if(loading || !lorry){
+  return (
+  <div style={{width: '90%', margin: '0 auto', display: 'flex', justifyContent: 'center'}}>
+          <ImSpinner9 style={{
+          width: '5rem',
+          color: 'red',
+          height: '10rem',
+        }}/>
+  </div>)
+}
+
+
+const filteredList = filter? paginatedPages.filter(item => filter === item.type.toLowerCase()): paginatedPages
 
 
   const lorryElement = filteredList.map(item =>{
     return(
-      <NavLink key={item.id} style={{
+      <NavLink key={item.sn} style={{
             display: 'flex', 
             flexDirection: 'column',
             gap: '1rem',
             alignItems: 'start',
             paddingBottom: '2rem',
           }}
-            to={item.id}
+            to={String(item.sn)}
             state={{
               search: `${searchParams.toString()}`,
               type: `${filter}`
@@ -123,6 +147,13 @@ const filteredList = filter? lorry.filter(item => filter === item.type.toLowerCa
           {lorryElement}
 
         </section>
+
+        <div style={{display: 'flex', justifyContent:'center', alignItems:'center', gap: '1.5em', marginBottom:'2em' }}>
+          <button className="bg-orange-400 px-4 py-1 text-xl text-white rounded-xl" onClick={handlePrev}>Prev</button>
+          <p>{pageNumber}/{NumberOfPages}</p>
+          <button className="bg-orange-400 px-4 py-1 text-xl text-white rounded-xl" onClick={handleNext}>Next</button>
+        </div>
+
         </div> 
 
     </div>

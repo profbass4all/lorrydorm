@@ -1,7 +1,6 @@
 import './App.css'
 import Bodylayout from './components/Bodylayout'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
-import Host from './components/Host'
 import Lorry from './components/Lorry'
 import Login from './components/Login'
 import About from './components/About'
@@ -22,7 +21,9 @@ import MerchantPhotos from './components/MerchantPhotos'
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false)
   const [token, setToken] = useState<string>('')
-  console.log( "token", token)
+
+
+
   
   return (
     <>
@@ -35,11 +36,11 @@ function App() {
           <Route path='lorry' element={<Lorry />} />
           <Route path='login' element={<Login setIsLoggedIn={setIsLoggedIn} setToken = {setToken}  />} />
           <Route path='lorry/:id' element={<LorryDetails />} />
-          <Route path='host' element={<HostLayout isLoggedIn={isLoggedIn} />} >
+          <Route path='host' element={<HostLayout token={token} isLoggedIn={isLoggedIn} />} >
           
               <Route index element={<Dashboard />} />
-              <Route path='income' element={<Income />} />
-              <Route path='lorries' element={<Lorries />} />
+              <Route path='income' element={<Income />}  />
+              <Route path='lorries' element={<Lorries/>} />
               <Route path='lorries/:id' element={<MerchantLorryDetail />}>
 
                   <Route index element={<MerchantDetails />} />
