@@ -46,32 +46,37 @@ const dontSHow = {
     if(mobile == true && open == true){
         display = true;
     }
-    // console.log('display', display);
-    // console.log('mobile', mobile);
+    
     if(mobile == false && display == false){
         displayLarge = true;
     }
-  return (
+    return (
     <>
         <header>
-            <div className="container-head" style={{flexDirection: display? 'column': 'row'}}>
+            <div className="container-head w-11/12" style={{flexDirection: display? 'column': 'row'}}>
                 
-                    <><NavLink to={'/'}><h1>#LORRYDORM</h1></NavLink>
-                    {displayLarge && <nav className="navv"> 
+                    <>
+                        <NavLink to={'/'}><h1>#LORRYDORM</h1></NavLink>
+
+                            {displayLarge && 
+                    <nav className="navv"> 
                         
                         <NavLink 
                             to={'host'} 
-                    style={({ isActive }) => isActive ? activeStyles:nonActiveStyles }
+                            style={({ isActive }) => isActive ? activeStyles:nonActiveStyles }
                             >
-                            Host</NavLink>
-                        <NavLink to={'about'}
-                        style={({ isActive }) => isActive ? activeStyles:nonActiveStyles }
+                            Host
+                        </NavLink>
 
-                        >About</NavLink>
-                        <NavLink to={'lorry'}                         style={({ isActive }) => isActive ? activeStyles:nonActiveStyles }
->Lorries</NavLink>
-                        <NavLink to={'login'}                         style={({ isActive }) => isActive ? activeStyles:nonActiveStyles }
- ><CgProfile className="avatar"/></NavLink>
+                        <NavLink to={'about'}
+                            style={({ isActive }) => isActive ? activeStyles:nonActiveStyles }>About
+                        </NavLink>
+
+                        <NavLink to={'lorry'} style={({ isActive }) => isActive ? activeStyles:nonActiveStyles }>Lorries
+                        </NavLink>
+
+                        <NavLink to={'login'} style={({ isActive }) => isActive ? activeStyles:nonActiveStyles }><CgProfile className="avatar"/>
+                        </NavLink>
                     </nav>}
 
 
@@ -79,14 +84,18 @@ const dontSHow = {
                     {display &&
                     <nav className="navv">
                         <button onClick={handleClose}>X</button>
-                        <NavLink to={'host'}                         style={({ isActive }) => isActive ? activeStyles:nonActiveStyles }
->Host</NavLink>
-                        <NavLink to={'about'}                         style={({ isActive }) => isActive ? activeStyles:nonActiveStyles }
->About</NavLink>
-                        <NavLink to={'lorry'}                         style={({ isActive }) => isActive ? activeStyles:nonActiveStyles }
->Lorries</NavLink>
-                        <NavLink to={'login'}                         style={({ isActive }) => isActive ? activeStyles:nonActiveStyles }
-><CgProfile className="avatar"/></NavLink>
+                        <NavLink to={'host'} style={({ isActive }) => isActive ? activeStyles:nonActiveStyles }>Host
+                        </NavLink>
+
+                        <NavLink to={'about'} style={({ isActive }) => isActive ? activeStyles:nonActiveStyles }>About
+                        </NavLink>
+
+                        <NavLink to={'lorry'} style={({ isActive }) => isActive ? activeStyles:nonActiveStyles }>Lorries
+                        </NavLink>
+
+                        <NavLink to={'login'} style={({ isActive }) => isActive ? activeStyles:nonActiveStyles }><CgProfile className="avatar"/>
+                        </NavLink>
+
                     </nav>}
                     </>
                 
@@ -96,7 +105,7 @@ const dontSHow = {
         </header>
     
     </>
-  )
+)
 }
 
 export default Header
