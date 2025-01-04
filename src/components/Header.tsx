@@ -52,30 +52,48 @@ const dontSHow = {
     }
     return (
     <>
-        <header>
-            <div className="container-head w-11/12" style={{flexDirection: display? 'column': 'row'}}>
+        <header className="bg-[#fff7ed]">
+            <div className="mx-auto h-full md:h-24 flex items-center h-full justify-between w-11/12" style={{flexDirection: display? 'column': 'row'}}>
                 
                     <>
-                        <NavLink to={'/'}><h1>#LORRYDORM</h1></NavLink>
+                        <NavLink to={'/'}><h1 className="text-black text-2xl font-black ">#LORRYDORM</h1></NavLink>
 
                             {displayLarge && 
                     <nav className="navv"> 
                         
-                        <NavLink 
+                        <NavLink
+                            className='hover:text-[#161616]
+                                hover:underline
+                                hover:decoration-solid'
                             to={'host'} 
                             style={({ isActive }) => isActive ? activeStyles:nonActiveStyles }
                             >
                             Host
                         </NavLink>
 
-                        <NavLink to={'about'}
+                        <NavLink 
+                            className='hover:text-[#161616]
+                                hover:underline
+                                hover:decoration-solid'
+
+                            to={'about'}
                             style={({ isActive }) => isActive ? activeStyles:nonActiveStyles }>About
                         </NavLink>
 
-                        <NavLink to={'lorry'} style={({ isActive }) => isActive ? activeStyles:nonActiveStyles }>Lorries
+                        <NavLink 
+                            className='hover:text-[#161616]
+                                hover:underline
+                                hover:decoration-solid'
+                        
+                            to={'lorry'} 
+                            style={({ isActive }) => isActive ? activeStyles:nonActiveStyles }  >Lorries
                         </NavLink>
 
-                        <NavLink to={'login'} style={({ isActive }) => isActive ? activeStyles:nonActiveStyles }><CgProfile className="avatar"/>
+                        <NavLink 
+                        
+                            className='hover:text-[#161616]'
+        
+                            to={'login'} style={({ isActive }) => isActive ? activeStyles:nonActiveStyles }><CgProfile className="h-8 w-8"/>
                         </NavLink>
                     </nav>}
 
@@ -83,23 +101,38 @@ const dontSHow = {
 
                     {display &&
                     <nav className="navv">
-                        <button onClick={handleClose}>X</button>
-                        <NavLink to={'host'} style={({ isActive }) => isActive ? activeStyles:nonActiveStyles }>Host
+                        <button className="mt-6" onClick={handleClose}>X</button>
+                        <NavLink 
+                        className='hover:text-[#161616]
+                                hover:underline
+                                hover:decoration-solid'
+
+                        to={'host'} style={({ isActive }) => isActive ? activeStyles:nonActiveStyles }>Host
                         </NavLink>
 
-                        <NavLink to={'about'} style={({ isActive }) => isActive ? activeStyles:nonActiveStyles }>About
+                        <NavLink 
+                        className='hover:text-[#161616]
+                                hover:underline
+                                hover:decoration-solid'
+                        
+                        to={'about'} style={({ isActive }) => isActive ? activeStyles:nonActiveStyles }>About
                         </NavLink>
 
-                        <NavLink to={'lorry'} style={({ isActive }) => isActive ? activeStyles:nonActiveStyles }>Lorries
+                        <NavLink 
+                        className='hover:text-[#161616]
+                                hover:underline
+                                hover:decoration-solid'
+                        
+                        to={'lorry'} style={({ isActive }) => isActive ? activeStyles:nonActiveStyles }>Lorries
                         </NavLink>
 
-                        <NavLink to={'login'} style={({ isActive }) => isActive ? activeStyles:nonActiveStyles }><CgProfile className="avatar"/>
+                        <NavLink to={'login'} style={({ isActive }) => isActive ? activeStyles:nonActiveStyles }><CgProfile className="h-8 w-8"/>
                         </NavLink>
 
                     </nav>}
                     </>
                 
-                    {mobile && <LuListCollapse style={{color: 'black', fontSize: '2rem', ...dontSHow}}  onClick = {handleClick}/>}
+                    {mobile && <LuListCollapse className="text-black text-3xl" style={dontSHow}  onClick = {handleClick}/>}
 
             </div>
         </header>

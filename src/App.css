@@ -6,30 +6,7 @@ body{
   background-color: #4d4d4d;
 }
 
-header{
-  height: 7rem;
-  background-color: #FFF7ED;
-}
-.container-head{
-  width: 90%;
-  margin-right: auto;
-  margin-left: auto;
-  display: flex;
-  align-items: center;
-  height: 100%;
-  justify-content: space-between;
-  
-}
 
-header h1{
-  color: #000;
-  font-size: 25px;
-  font-weight: 900;
-}
-header a:hover {
-  color: #161616;
-  text-decoration: underline;
-}
 nav{
   display: flex;
   align-items: center;
@@ -39,28 +16,6 @@ nav{
   font-weight: 600;
 }
 
-.avatar{
-  width: 1.875rem;
-  height: 1.875rem;
-}
-.btns > button{
-  background-color: #FFEAD0;
-  color: #4d4d4d;
-  padding: 0.5rem 1.5rem;
-  border-radius: 10px;
-}
-
-.van-type {
-  height: 34px;
-  padding: 6px 26px;
-  font-style: normal;
-  font-weight: 500;
-  border: none;
-  border-radius: 5px;
-  background-color: #E17654;
-  color: #FFEAD0;
-  transition: 200ms all cubic-bezier(0.4, 0, 0.2, 1);
-}
 
 .simple:hover,
 .simple.selected {

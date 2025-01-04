@@ -6,8 +6,6 @@ import usePagination from '../hooks/usePagination';
 import PaginationButton from './PaginationButton';
 
 
-
-
 function Lorry() {
 
   const [lorry, setLorries] = useState<LorryType[] >([])
@@ -51,44 +49,38 @@ function Lorry() {
 
 if(loading || !lorry){
   return (
-  <div style={{width: '90%', margin: '0 auto', display: 'flex', justifyContent: 'center'}}>
-          <ImSpinner9 style={{
-          width: '5rem',
-          color: 'red',
-          height: '10rem',
-        }}/>
+  <div className='w-11/12 mx-auto flex justify-center'>
+          <ImSpinner9 className='w-20 text-orange-300 h-40'/>
   </div>)
 }
 
 
-const filteredList = filter? paginatedPages.filter(item => filter === item.type.toLowerCase()): paginatedPages
+const filteredList = filter? lorry.filter(item => filter === item.type.toLowerCase()): paginatedPages
 
 
   const lorryElement = filteredList.map(item =>{
     return(
-      <NavLink key={item.sn} style={{
-            display: 'flex', 
-            flexDirection: 'column',
-            gap: '1rem',
-            alignItems: 'start',
-            paddingBottom: '2rem',
-          }}
+      <NavLink key={item.sn} 
+            className='flex flex-col gap-4 items-start pb-8' 
             to={String(item.sn)}
             state={{
               search: `${searchParams.toString()}`,
               type: `${filter}`
                   }}
           >
-              <img src={item.imageUrl} style={{borderRadius: '0.5rem'}} />
-              <h3 style={{
-                fontWeight: '600',
-                fontSize: '1.24rem'
-              }}>{item.name}</h3>
-              <p style={{fontSize:'1.5rem'}}>${item.price}/day</p>
-              <button className={`van-type selected ${item.name}`}>{item.type}</button>
+              <img src={item.imageUrl} className='rounded-md' />
+
+              <h3 className='font-semibold text-2xl'>{item.name}</h3>
+
+              <p className='text-2xl'>${item.price}/day</p>
+
+              <button 
+                    className={`h-8 py-5 flex justify-center items-center px-8 font-medium border-none rounded-md bg-[#e17654] text-[#ffead0] ${item.type}`}>{item.type}
+              </button>
           </NavLink>
     )
   })
+  
 
   const handleParams = (key: string, value: string| null)=>{
       setSearchParams(prev =>{
@@ -107,55 +99,46 @@ const filteredList = filter? paginatedPages.filter(item => filter === item.type.
   }
   return (
 
-    <div style={{
-        backgroundColor: '#FFF7ED',
-        color: '#161616',
-        paddingTop: '2em',
-    }}>
-        <div style={{
-        width: '90%',
-        margin: '0 auto',
-        }}>
+    <div className='bg-[#fff7ed] text-[#161616] pt-8'>
+        <div className='w-11/12 mx-auto'>
 
-          <h2 style={{
-          fontSize: '2rem',
-          fontWeight: 'bold',
-        }}>Explore our van options</h2>
+          <h2 className='text-3xl font-bold'>Explore our van options</h2>
 
-        <section  className='btns' style={{
-          display: 'flex',
-          flexDirection: 'row',
-          justifyContent: 'space-between',
-          alignItems: 'center',
-          color: '#4d4d4d',
-          marginTop: '2em',
-          paddingBottom: '3em',
-          fontWeight: '500'
-        }}>
-          <button className={`simple ${filter === 'simple'? 'selected' : ''}`} onClick={()=>handleParams('type', 'simple')}>Simple</button>
-          <button className={`luxury ${filter === 'luxury'? 'selected' : ''} `} onClick={()=>handleParams('type', 'luxury')}>Luxury</button>
-          <button className={`rugged ${filter === 'rugged'? 'selected' : ''}`} onClick={()=>handleParams('type', 'rugged')}>Rugged</button>
+        <section   className='btns flex justify-between items-center text-[#4d4d4d] mt-8 pb-12 font-medium'>
+
+          <button 
+                className={`simple bg-[#ffead0] text-[#4d4d4d] py-2 px-4 rounded-md ${filter === 'simple'? 'selected' : ''}`} 
+              onClick={()=>handleParams('type', 'simple')}>Simple
+          </button>
+
+
+          <button 
+                className={`luxury bg-[#ffead0] text-[#4d4d4d] py-2 px-4 rounded-md ${filter === 'luxury'? 'selected' : ''} `} onClick={()=>handleParams('type', 'luxury')}>Luxury
+          </button>
+
+          <button 
+                className={`rugged bg-[#ffead0] text-[#4d4d4d] py-2 px-4 rounded-md ${filter === 'rugged'? 'selected' : ''}`} onClick={()=>handleParams('type', 'rugged')}>Rugged
+          </button>
+
           <div>
-              {filter &&  <button onClick={()=> handleParams('type', null)} style={{borderBottom: '2px solid #4d4d4d'}}>Clear filters</button>}
+              {filter &&  <button onClick={()=> handleParams('type', null)}     className='border-b-2 border-solid border-[#4d4d4d]'>Clear filters</button>}
   
           </div>          
         </section>
 
-        <section style={{
-          color: '#161616'
-        }}>
+        <section className='text-[#161616]'>
           
           {lorryElement}
 
         </section>
 
         
-        <PaginationButton  
+        {!filter && <PaginationButton  
           handlePrev={handlePrev}
           handleNext={handleNext}
           NumberOfPages={NumberOfPages}
           pageNumber={pageNumber}
-    />
+    />}
 
         </div> 
 

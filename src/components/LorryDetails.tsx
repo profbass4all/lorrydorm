@@ -1,65 +1,82 @@
 import { NavLink, useLocation, useParams } from 'react-router-dom'
-import {data} from '../data'
+import { useEffect, useState } from 'react'
+import { LorryType } from '../types'
 
 function LorryDetails() {
+    const [lorry, setLorry] = useState<LorryType | null>(null)
+    const [loading, setLoading] = useState<boolean>(false)
+    const [error, setError] = useState(null)
 
     const {id} = useParams()
     const location = useLocation()
-console.log(location)
-    const lorry = data.find(item => item.id === id)
-    if(!lorry) throw new Error
+
+    useEffect(() =>{
+            async function getLorries(){
+                try {
+                    setLoading(true)
+                    const response = await fetch(`http://localhost:1624/lorry/${id}`,{
+                        method: 'GET',
+                        headers: {
+                                    'Content-Type': 'application/json',
+                                },
+                            })
+        
+                    if (!response.ok) {
+                        throw new Error('Failed to fetch data')
+                    }
+        
+                    const data = await response.json()
+                    setLorry(data.data)
+                } catch (error: any) {
+                    setError(error.message)
+                }finally {
+                    setLoading(false)
+                }
+            }
+        
+            getLorries()
+        }, [])
+
+    // const lorry = data.find(item => item.id === id)
+if(loading || !lorry){
+        return <p>Loading...</p>
+    }
+
+    if(error){
+        return <p>{error}</p>
+    }
 
     const search = location.state? location.state.search: ''
     const type = location.state? location.state.type : ''
 
-  return (
-    <div style={{
-        width: '90%',
-        paddingTop: '2rem',
-        margin: '0 auto'
-    }}>
-        <NavLink to={`../?${search}`} relative='path'>&larr; <span style={{
-            borderBottom: '2px solid #201F1D',
-        }}>Back to {type != 'null' ? `${type}`: 'all'} lorries</span></NavLink>
+    return (
+    <div className='w-11/12 pt-8 mx-auto'>
 
-        <div style={{
-            marginTop: '3em',
-            marginBottom: '3em',
-        }}>
-            <img src={lorry.imageUrl} style={{borderRadius: '0.6em'}} />
+        <NavLink to={`../?${search}`} relative='path'>&larr; <span className='border-solid border-b-2 border-[#201f1d]'>Back to {type != 'null' ? `${type}`: 'all'} lorries</span></NavLink>
+
+        <div className='mt-12 mb-3'>
+            <img src={lorry.imageUrl} className='rounded-md' />
 
         </div>
         
-        <button className={`van-type`}>{lorry.type}</button>
+        <button className={`h-8 py-5 flex justify-center items-center px-8 font-medium border-none rounded-md bg-[#e17654] text-[#ffead0]`}>{lorry.type}</button>
         <div>
-            <h1 style={{
-                fontSize: '2em',
-                fontWeight: 'bold',
-                color: '#161616',
-                marginTop: '0.5em',
-                marginBottom: '0.2em'
-            }}>{lorry.name}</h1>
+            <h1 className='text-3xl font-bold text-[#161616] my-8 mb-1'>
+                {lorry.name}    
+            </h1>
+
             <p>
-                <span style={{
-                fontSize: '1.5rem',
-                fontWeight: '600'
-            }}>${lorry.price}</span>/day
+                <span className='text-2xl font-semibold mb-8'>${lorry.price}</span>/day
             
             </p>
-            <p style={{
-                margin: '0.9em 0'
-            }}>{lorry.description}</p>
 
-            <button className='py-2 px-4 rounded mb-20' style={{
-                color: 'white',
-                backgroundColor: '#FF8C38',
-                width: '100%',
-                fontWeight: '600'
+            <p className='mt-4'>{lorry.description}</p>
 
-            }}>Rent this lorry</button>
+            <button className='py-2 px-4 rounded mt-12 mb-20 text-white bg-[#ff8c38] w-full font-semibold'>Rent this lorry</button>
+
         </div>
     </div>
-  )
+    )
 }
 
 export default LorryDetails

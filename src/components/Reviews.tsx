@@ -40,24 +40,28 @@ function Reviews() {
   }
   
 }
-const totalRating = reviews.reduce((acc, curr) => {
+const totalRating = reviews.reduce((acc, curr): number => {
   return acc + curr.rating
 },0)
 
-const averageRating = totalRating/reviews.length
+const averageRating: number = totalRating/reviews.length
 
 let rating = [];
     for(let star in starsObj){
-        rating.push(<div key={star} style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2em', color: '#4d4d4d', fontWeight: '600'}}>
+        rating.push(<div key={star} 
+        
+          className="flex justify-between items-center mb-8 text-[#4d4d4d] font-semibold">
+
               <p>{star} stars</p>
-              <div style={{width: '70%', height: '0.7rem', backgroundColor: '#b9b9b9', borderRadius: '5px', display: 'flex', alignItems: 'center', }}>
-                <div style={{
-                  backgroundColor: '#FF8C38', 
-                  width: `${((starsObj[star]/reviews.length) * 100).toFixed(1)}%`, 
-                  height: '0.7rem',
-                  borderRadius: '5px',
-                  
-                  }}></div>
+
+              <div className="w-[70%] h-[0.7rem] bg-[#b9b9b9] rounded-md flex items-center">
+
+                <div className= 'bg-[#ff8c38] h-3 rounded-md' 
+                  style={{
+                  width: `${((starsObj[star]/reviews.length) * 100).toFixed(1)}%`,       
+                    }}>
+
+                    </div>
               </div>
               <p>{((starsObj[star]/reviews.length) * 100).toFixed(1)}%</p>
             </div>)
@@ -67,32 +71,51 @@ let rating = [];
 
 const reviewText = paginatedPages.map(review =>{
     
-  let stars = Array(5).fill(<FaStar style={{fontSize: '1.5rem'}} />);
+  let stars = Array(5).fill(<FaStar className="text-2xl"/>);
 
 
   return (
 
     <>
-    <div className='my-6' key={review.sn} style={{display: 'flex'}}>
+    <div className='my-6 flex' key={review.sn}>
 
-    {stars.fill(<FaStar color="#FF8C38" style={{fontSize: '1.5rem'}} />, 0, review.rating)}
+    {stars.fill(<FaStar className="text-[#ff8c38] text-2xl" />, 0, review.rating)}
+
     </div>
-    <span style={{fontWeight: '700', marginRight: '0.5em'}}>{review.first_name}</span>
-    <span style={{color:'#8c8c8c'}}>{review.date.slice(0,10)}</span>
-    <p style={{fontWeight: '500', marginTop: '1em', borderBottom: '1px solid #c7c7c7', paddingBottom: '2em'}}>{review.text}</p>
+
+    <span className="font-bold mr-2">{review.first_name}</span>
+
+    <span className="text-[#8c8c8c]" >{review.date.slice(0,10)}</span>
+    
+    <p className="font-medium mt-4 border-solid border-b-2 border-[#c7c7c7] pb-8">{review.text}</p>
+
     </>
   )
 })
 
   return (
 
-    <div className='mx-auto mt-10 mb-10' style={{width: '90%'}}>
+    <div className='mx-auto mt-10 mb-10 w-11/12'>
 
-      <h2><span style={{fontSize: '2rem', fontWeight: '700'}}>Your Reviews</span> <span style={{color: '#4d4d4d', fontWeight: '500', marginLeft: '1em'}}>last</span> <span style={{color: '#4d4d4d', fontWeight: '700', textDecoration: 'underline'}}>30 days</span></h2>
+      <h2><span className="text-3xl font-bold">Your Reviews</span> 
+      
+      <span className="font-medium text-[#4d4d4d] ml-2">last</span> 
+      
+      <span className="font-bold text-[#4d4d4d] underline decoration-solid ml-2">30 days</span></h2>
 
 
-      <div className='my-4'>
-        <h3 style={{display: 'flex', alignItems: 'center', gap: '0.5rem'}}><span style={{fontSize: '2rem', fontWeight: '700'}} >{averageRating.toFixed(1)}</span><FaStar color="#FF8C38" style={{fontSize: '1.5rem'}}/><span style={{fontWeight: '600'}}>overall rating</span>
+      <div className='my-6'>
+
+        <h3 className="flex items-center gap-2">
+          
+          <span className="text-3xl font-bold">
+            
+            {averageRating.toFixed(1)}
+          </span>
+          <FaStar className="text-[#ff8c38] text-2xl"/>
+
+          <span className='font-semibold'>overall rating</span>
+
         </h3>
       </div>
 
@@ -104,7 +127,7 @@ const reviewText = paginatedPages.map(review =>{
 
     <div>
 
-        <h3 style={{fontWeight: '700', fontSize: '1.25rem'}}>Reviews <span>({reviews.length})</span></h3>
+        <h3 className="font-bold text-xl">Reviews <span>({reviews.length})</span></h3>
 
         {reviewText}
 

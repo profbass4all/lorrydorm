@@ -6,7 +6,7 @@ function MerchantPricing() {
 
 
   return (
-    <div><span style={{fontSize: '1.5rem', fontWeight: '500'}}>${price}</span> /day</div>
+    <div><span className='text-2xl font-medium'>${price}</span> /day</div>
   )
 }
 

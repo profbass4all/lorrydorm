@@ -18,11 +18,11 @@ const {name, type, description} = useOutletContext<LorryDetails>()
   return (
     <div style={{color:'#161616' }}>
 
-        <h2 className='mb-4' style={{fontWeight: '500'}}><span style={{fontWeight: '700'}}>Name: </span> {name}</h2>
+        <h2 className='mb-4 font-medium'><span className="font-bold" >Name: </span> {name}</h2>
 
-        <h3 className='mb-4' style={{fontWeight: '500'}}><span style={{fontWeight: '700'}}>Category:</span> {type}</h3>
+        <h3 className='mb-4 font-medium'><span className="font-bold" >Category:</span> {type}</h3>
 
-        <h4 style={{fontWeight: '500'}}><span style={{fontWeight: '700'}}>Description: </span> {description}</h4>
+        <h4 className="font-medium"><span className="font-bold" >Description: </span> {description}</h4>
     </div>
   )
 }

@@ -1,4 +1,4 @@
-import { NavLink, Outlet, useOutletContext, useParams } from 'react-router-dom'
+import { NavLink, Outlet, useParams } from 'react-router-dom'
 import { useState, useEffect } from 'react'
 import { LorryType } from '../types'
 
@@ -6,8 +6,8 @@ function MerchantLorryDetail() {
     const [lorry, setLorry] = useState<LorryType | null>(null)
     const [loading, setLoading] = useState<boolean>(false)
     const [error, setError] = useState(null)
-    const { token } = useOutletContext<{token: string}>()
     const {id} = useParams()
+
     if(!id){
         return
     }
@@ -21,7 +21,6 @@ function MerchantLorryDetail() {
                     method: 'GET',
                     headers: {
                                 'Content-Type': 'application/json',
-                                'Authorization': `Bearer ${token}`,
                             },
                         })
     
@@ -57,35 +56,42 @@ function MerchantLorryDetail() {
     if(error){
         return <p>{error}</p>
     }
-    // const findDetails= setLorry.find(item =>item.id === id)
-    // if(!findDetails) throw new Error(`Could not find`)
+
 
 return (
-    <div style={{width: '90%'}} className='mx-auto mt-14'>
+    <div className='mx-auto mt-14 w-11/12'>
 
-        <div style={{marginBottom: '2.5em'}}>
-                <NavLink  to={`..`} relative='path'>&larr; <span style={{
-            borderBottom: '2px solid #201F1D',
-        }}>Back to all lorries</span></NavLink>
+        <div className='mb-12'>
+
+                <NavLink to={`..`} relative='path'>&larr; <span 
+                    className='border-solid border-b-2 border-[#201f1d]'>Back to all lorries</span>
+                </NavLink>
         </div>
         
 
 
-        <div className='mb-16' style={{backgroundColor: '#fff', padding: '1.5em'}}>
+        <div className='mb-16 bg-[#fff] p-6'>
 
-            <div style={{display: 'flex', gap:'1.5rem', marginBottom:'2em'}}>
-                <img src={lorry.imageUrl} style={{width: '10rem', height:'10rem', borderRadius: '5px'}} />
+            <div className='flex gap-6 mb-8'>
+
+                <img src={lorry.imageUrl} className='w-48 h-48 rounded-md'/>
+
                 <div>
-                    <button className='py-1 px-4 rounded mb-2' style={{backgroundColor: '#E17654', color:'#FFEAD0'}}>{lorry.type}</button>
-                    <h2 style={{color: '#161616', fontSize: '1.6875rem', fontWeight: '800'}}>{lorry.name}</h2>
-                    <p style={{fontWeight: '600'}}><span style={{fontWeight: '700', fontSize: '1.25rem'}}>${lorry.price}</span>/day</p>
+                    <button className='py-1 px-4 rounded mb-2 bg-[#e17654] text-[#ffead0]'>{lorry.type}</button>
+
+
+                    <h2 className='text-2xl text-[#161616] font-extrabold'>{lorry.name}</h2>
+
+                    <p className='font-semibold'><span className='font-bold text-2xl'>${lorry.price}</span>/day</p>
                 </div>
             </div>
 
-            <nav className='mb-6' style={{justifyContent: 'start'}}>
+            <nav className='mb-6 justify-start'>
 
                 <NavLink to={'.'} style={({isActive})=> isActive? activeSyles: {} } end>Details</NavLink>
+
                 <NavLink to={'pricing'} style={({isActive})=> isActive? activeSyles: {} }>Pricing</NavLink>
+                
                 <NavLink to={'photos'} style={({isActive})=> isActive? activeSyles: {} }>Photos</NavLink>
 
             </nav>
