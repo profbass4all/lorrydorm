@@ -14,7 +14,7 @@ function LorryDetails() {
             async function getLorries(){
                 try {
                     setLoading(true)
-                    const response = await fetch(`http://localhost:1624/lorry/${id}`,{
+                    const response = await fetch(`https://lorrydorm-backend.onrender.com/lorry/${id}`,{
                         method: 'GET',
                         headers: {
                                     'Content-Type': 'application/json',

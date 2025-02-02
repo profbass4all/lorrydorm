@@ -34,7 +34,7 @@ function HostLayout({isLoggedIn, token}: {isLoggedIn: boolean, token: string}) {
     async function getTransaction(){
         setLoading(true)
         try {
-        const response = await fetch('http://localhost:1624/transactions', {
+        const response = await fetch('https://lorrydorm-backend.onrender.com/transactions', {
             method: 'GET',
             headers: {
             'Content-Type': 'application/json',
@@ -64,7 +64,7 @@ function HostLayout({isLoggedIn, token}: {isLoggedIn: boolean, token: string}) {
         async function getReviews(){
             try {
                 setLoadingB(true)
-                const response = await fetch('http://localhost:1624/reviews', {
+                const response = await fetch('https://lorrydorm-backend.onrender.com/reviews', {
                     method: 'GET',
                     headers: {
                     'Content-Type': 'application/json',

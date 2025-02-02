@@ -24,7 +24,7 @@ const Login = ({setIsLoggedIn, setToken}:LoggingType ) => {
 
   const loginSubmit: SubmitHandler<Inputs> = async (data: Inputs) => {
     try {
-        const response = await fetch('http://localhost:1624/login', {
+        const response = await fetch('https://lorrydorm-backend.onrender.com/login', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

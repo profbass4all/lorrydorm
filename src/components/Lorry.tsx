@@ -24,7 +24,7 @@ function Lorry() {
     async function getLorries(){
       try {
         setLoading(true)
-        const response = await fetch('http://localhost:1624/all-lorries')
+        const response = await fetch('https://lorrydorm-backend.onrender.com/all-lorries')
         if(!response.ok){
           throw new Error('Failed to fetch data')
         }
